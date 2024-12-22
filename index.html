@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programma Televisivo con Stagioni</title>
     <!-- Includi Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,10 +16,12 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+
         h1 {
             text-align: center;
             color: #333;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -24,70 +29,100 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
             color: #333;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         tr:hover {
             background-color: #f1f1f1;
         }
+
         .loading {
             text-align: center;
             font-size: 1.5em;
             color: #666;
         }
+
+        #chart {
+            width: 100%;
+            height: 800px;
+            /* Altezza maggiore per migliorare leggibilità */
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>4 Ristoranti</h1>
-        <div class="form-group">
-            <label for="season-select">Seleziona Stagione:</label>
-            <select id="season-select" class="form-control">
-                <option value="all">Tutte</option>
-            </select>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#table-tab">Tabella</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#chart-tab">Grafico</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <!-- Tabella -->
+            <div id="table-tab" class="tab-pane fade show active">
+                <div class="form-group mt-3">
+                    <label for="season-select">Seleziona Stagione:</label>
+                    <select id="season-select" class="form-control">
+                        <option value="all">Tutte</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search-input">Cerca Concorrenti:</label>
+                    <input type="text" id="search-input" class="form-control"
+                        placeholder="Inserisci il nome del concorrente">
+                </div>
+                <div id="loading" class="loading">Caricamento...</div>
+                <table id="data-table" class="table table-striped table-bordered" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Anno</th>
+                            <th>Stagione</th>
+                            <th>Puntata</th>
+                            <th>Location</th>
+                            <th>Tema</th>
+                            <th>Prima visione</th>
+                            <th>Categoria speciale</th>
+                            <th>Concorrenti</th>
+                            <th>Vincitore</th>
+                            <th>Titolare</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Grafico -->
+            <div id="chart-tab" class="tab-pane fade">
+                <div id="chart" style="width: 100%; margin-top: 20px;"></div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="search-input">Cerca Concorrenti:</label>
-            <input type="text" id="search-input" class="form-control" placeholder="Inserisci il nome del concorrente">
-        </div>
-        <div id="loading" class="loading">Caricamento...</div>
-        <table id="data-table" class="table table-striped table-bordered" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Anno</th>
-                    <th>Stagione</th>
-                    <th>Puntata</th>
-                    <th>Location</th>
-                    <th>Tema</th>
-                    <th>Prima visione</th>
-                    <th>Categoria speciale</th>
-                    <th>Concorrenti</th>
-                    <th>Vincitore</th>
-                    <th>Titolare</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
 
-    <!-- Includi jQuery e Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Script JS -->
     <script>
         let data = [];
 
@@ -140,10 +175,100 @@
             });
         }
 
-        document.getElementById('search-input').addEventListener('input', () => {
-            const season = document.getElementById('season-select').value;
-            displayData(season);
+        function enableAutoResize(chart) {
+    window.addEventListener('resize', () => {
+        chart.resize(); // Esegue il resize del grafico quando la finestra viene ridimensionata
+    });
+
+    
+}
+
+        document.querySelector('a[data-bs-toggle="tab"][href="#chart-tab"]').addEventListener('shown.bs.tab', () => {
+            const chartDom = document.getElementById('chart');
+            let chart = echarts.getInstanceByDom(chartDom);
+
+            // Inizializza il grafico se non esiste già
+            if (!chart) {
+                chart = echarts.init(chartDom);
+            }
+
+            // Ridimensiona il grafico
+            chart.resize();
+
+            // Configura il grafico
+            const years = [...new Set(data.map(item => item.Anno))];
+            const locations = [...new Set(data.map(item => item.Location))];
+            const locationCounts = locations.map(location => {
+                return years.map(year => data.filter(item => item.Location === location && item.Anno === year).length);
+            });
+
+            const option = {
+                color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+                title: {
+                    text: 'Gradient Stacked Area Chart',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                legend: {
+                    data: locations,
+                    bottom: 0,
+                    selected: locations.reduce((acc, location) => {
+                        acc[location] = false; // Nessuna location selezionata di default
+                        return acc;
+                    }, {})
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '10%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: years
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: locations.map((location, index) => ({
+                    name: location,
+                    type: 'line',
+                    stack: 'Total',
+                    smooth: true,
+                    lineStyle: {
+                        width: 0
+                    },
+                    showSymbol: false,
+                    areaStyle: {
+                        opacity: 0.8,
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: `hsl(${index * 30}, 100%, 70%)` },
+                            { offset: 1, color: `hsl(${index * 30}, 100%, 30%)` }
+                        ])
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    data: locationCounts[index]
+                }))
+            };
+
+            chart.setOption(option);
+            enableAutoResize(chart);
+            
         });
+
+
     </script>
 </body>
+
 </html>
