@@ -3,8 +3,9 @@ FROM node:14
 # Imposta la directory di lavoro
 WORKDIR /app
 
-# Copia i file nella directory di lavoro
-COPY . .
+# Copia tutti i file html e json
+COPY *.html ./
+COPY *.json ./
 
 # Installa un server HTTP semplice
 RUN npm install -g http-server
