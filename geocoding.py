@@ -69,7 +69,7 @@ def add_coordinates_to_json(input_file, output_file, api_key):
         print("Error decoding JSON from input file.")
 
 if __name__ == "__main__":
-    api_key = "8b78ca7fc3df440a96e4c64c416a4bf3"
-    input_file = "Programma_Televisivo_con_Stagioni_clean.json"
-    output_file = "Programma_Televisivo_con_Stagioni_with_coordinates.json"
+    api_key = "XXX"
+    input_file = "init_json.old"
+    output_file = "4ristoranti.json"
     add_coordinates_to_json(input_file, output_file, api_key)
