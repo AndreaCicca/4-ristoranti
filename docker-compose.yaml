@@ -3,6 +3,8 @@ services:
   web:
     build: .
     ports:
-      - "7778:7778"
+      - "3000:3000"
     volumes:
       - .:/app
+    environment:
+      - NODE_ENV=development

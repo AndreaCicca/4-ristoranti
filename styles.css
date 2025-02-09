@@ -1,0 +1,190 @@
+:root {
+    --primary-color: #1a73e8;
+    --secondary-color: #4285f4;
+    --accent-color: #34a853;
+    --background-color: #f8f9fa;
+    --text-color: #202124;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 2.8em;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-tabs {
+    border: none;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    display: flex;
+}
+
+.nav-tabs .nav-link {
+    color: var(--text-color);
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+    position: relative;
+    background: transparent;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color);
+    background: rgba(26, 115, 232, 0.1);
+}
+
+.nav-tabs .nav-link.active {
+    color: white;
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: 0.8rem 1rem;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+    outline: none;
+}
+
+table {
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin-top: 1.5rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    font-weight: 600;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid #eef0f2;
+    font-size: 0.95rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover {
+    background-color: rgba(26, 115, 232, 0.04);
+}
+
+.loading {
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color) !important;
+}
+
+#chart {
+    width: 100%;
+    height: 800px;
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius);
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius);
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+
+.chart-container:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+#timeline-chart {
+    height: 500px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .nav-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+    
+    .nav-tabs .nav-link {
+        white-space: nowrap;
+    }
+    
+    td, th {
+        padding: 0.75rem;
+    }
+    
+    .chart-container {
+        height: 350px;
+        padding: 1rem;
+    }
+    
+    #timeline-chart {
+        height: 400px;
+    }
+}

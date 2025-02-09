@@ -1,0 +1,12 @@
+{
+  "name": "4-ristoranti-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard per visualizzare i dati del programma 4 Ristoranti",
+  "main": "index.html",
+  "scripts": {
+    "start": "lite-server --host 0.0.0.0"
+  },
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
