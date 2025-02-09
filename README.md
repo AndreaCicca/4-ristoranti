@@ -32,12 +32,8 @@ I dati provengono dalla pagina wikipedia del programma. Sono stati raccolti e or
 
 ## 🛠️ Tecnologie Utilizzate
 
-- HTML5
-- CSS3 con Bootstrap 5.3.3
-- JavaScript
+- Bootstrap 5.3.3
 - ECharts per la visualizzazione dei grafici
-- Font Awesome per le icone
-- Google Fonts (Inter)
 
 ## 🚀 Come Iniziare
 
