@@ -45,10 +45,11 @@ I dati provengono dalla pagina wikipedia del programma. Sono stati raccolti e or
 ```bash
 git clone https://github.com/AndreaCicca/4-ristoranti
 ```
-
-2. Apri il file `index.html` in un browser web moderno
-
-3. I dati vengono caricati automaticamente dal file JSON incluso nel progetto
+2. Usa docker
+```bash
+docker-compose up -d --build
+```
+3 Apri il browser e vai all'indirizzo `http://localhost:7778`
 
 ## 💡 Note
 
