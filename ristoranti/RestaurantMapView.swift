@@ -17,7 +17,7 @@ struct RestaurantMapView: View {
     var groupedEpisodes: [LocationGroup] {
         let grouped = Dictionary(grouping: dataService.episodes.filter { $0.Location != "Italia" }) { episode -> String in
             guard let lat = episode.Latitude, let lon = episode.Longitude else { return "unknown" }
-            return "\(lat),\(lon)"
+            return String(format: "%.6f,%.6f", lat, lon)
         }
         
         return grouped.compactMap { (_, episodes) -> LocationGroup? in

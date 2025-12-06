@@ -24,8 +24,8 @@
         "Concorrenti": "La Saluma, La Brasserie, Kiosquito 46, La Mi Mama",
         "Vincitore": "Kiosquito46",
         "Titolare": "Nicoletta",
-        "Latitude": 44.4914458,
-        "Longitude": 11.3435713
+        "Latitude": null,
+        "Longitude": null
     },
     {
         "Anno": "2015",
@@ -206,8 +206,8 @@
         "Concorrenti": "Da Gianfranco, Hosteria da Pantalla, Da Ciccio alla Capannaccia, Duca di Orvieto",
         "Vincitore": "Da Ciccio alla Capannaccia",
         "Titolare": "Ciccio",
-        "Latitude": 53.0203844,
-        "Longitude": -2.1984874
+        "Latitude": null,
+        "Longitude": null
     },
     {
         "Anno": "2015",
@@ -234,8 +234,8 @@
         "Concorrenti": "Osteria in Scandiano, Mentana 104, Antica osteria Vecchia Pirri, Marta in Cucina",
         "Vincitore": "Osteria In Scandiano",
         "Titolare": "Andrea",
-        "Latitude": 51.9190352,
-        "Longitude": 19.3618696
+        "Latitude": null,
+        "Longitude": null
     },
     {
         "Anno": "2016",
@@ -570,8 +570,8 @@
         "Concorrenti": "Hosteria La Fraschetta, Cantina Simonetti, Osteria di Corte, Fraschetta de Sora Ines",
         "Vincitore": "Hosteria La Fraschetta",
         "Titolare": "Giorgia",
-        "Latitude": -21.5684294,
-        "Longitude": -45.4369064
+        "Latitude": 41.8933203,
+        "Longitude": 12.4829321
     },
     {
         "Anno": "2019",
@@ -1494,8 +1494,8 @@
         "Concorrenti": "Palazzo Petrucci (Napoli), Cambia-Menti (Caserta), Impastatori Pompetti (Roseto degli Abruzzi), La Cascina dei Sapori (Rezzato)",
         "Vincitore": "Cambia-Menti",
         "Titolare": "Ciccio",
-        "Latitude": 41.2035193,
-        "Longitude": 14.1168624
+        "Latitude": null,
+        "Longitude": null
     },
     {
         "Anno": "2024",
@@ -1648,7 +1648,7 @@
         "Concorrenti": "Fratelli Bruzzone (Torino), Vêgia Òstàia Da-o Pöulu (Genova), Ristorante Cesarina (Bologna), U' Vulesce (Cerignola)",
         "Vincitore": "U' Vulesce",
         "Titolare": "Rosario",
-        "Latitude": 41.2648121,
-        "Longitude": 15.8996651
+        "Latitude": null,
+        "Longitude": null
     }
 ]

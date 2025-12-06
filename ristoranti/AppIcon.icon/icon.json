@@ -1,11 +1,26 @@
 {
   "fill" : {
-    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+    "linear-gradient" : [
+      "display-p3:0.68422,1.00000,0.97022,1.00000",
+      "display-p3:0.96783,0.73424,0.94241,1.00000"
+    ],
+    "orientation" : {
+      "start" : {
+        "x" : 0.5,
+        "y" : 0
+      },
+      "stop" : {
+        "x" : 0.5,
+        "y" : 0.7
+      }
+    }
   },
   "groups" : [
     {
       "layers" : [
         {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
           "image-name" : "4-3.png",
           "name" : "4-3"
         }
