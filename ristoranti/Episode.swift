@@ -38,4 +38,22 @@ struct Episode: Codable, Identifiable {
         guard let lat = Latitude, let lon = Longitude else { return nil }
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
+
+    private static let italianFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MMM-yy"
+        formatter.locale = Locale(identifier: "it_IT")
+        return formatter
+    }()
+
+    var airDate: Date? {
+        return Episode.italianFormatter.date(from: Prima_visione)
+    }
+
+    var formattedDate: String {
+        if let date = airDate {
+            return DateFormatter.localizedString(from: date, dateStyle: .long, timeStyle: .none)
+        }
+        return Prima_visione
+    }
 }

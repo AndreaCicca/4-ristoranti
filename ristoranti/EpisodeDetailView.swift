@@ -14,7 +14,7 @@ struct EpisodeDetailView: View {
                     DetailRow(icon: "tv", title: "Puntata", value: "Stagione \(episode.Stagione), Ep. \(episode.Puntata)")
                     DetailRow(icon: "calendar", title: "Anno", value: episode.Anno)
                     DetailRow(icon: "info.circle", title: "Tema", value: episode.Tema)
-                    DetailRow(icon: "play.circle", title: "Prima Visione", value: episode.Prima_visione)
+                    DetailRow(icon: "play.circle", title: "Prima Visione", value: episode.formattedDate)
                     
                     if let categoria = episode.Categoria_speciale, !categoria.isEmpty {
                         DetailRow(icon: "star", title: "Categoria Speciale", value: categoria)
