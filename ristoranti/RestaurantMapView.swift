@@ -34,8 +34,20 @@ struct RestaurantMapView: View {
             }
         }
         .sheet(item: $selectedGroup) { group in
+#if os(iOS) || targetEnvironment(macCatalyst)
+            // Prefer a large detent when the group has multiple episodes
+            if group.episodes.count > 1 {
+                GroupDetailSheet(group: group)
+                    .presentationDetents([.large])
+            } else {
+                GroupDetailSheet(group: group)
+                    .presentationDetents([.medium, .large])
+            }
+#else
+            // On macOS present a larger sheet window when multiple episodes exist
             GroupDetailSheet(group: group)
-                .presentationDetents([.medium, .large])
+                .frame(minWidth: 500, minHeight: group.episodes.count > 1 ? 600 : 400)
+#endif
         }
     }
 }
@@ -78,7 +90,9 @@ struct GroupDetailSheet: View {
                     }
                 }
                 .navigationTitle(group.episodes.first?.Location ?? "Episodi")
+#if os(iOS) || targetEnvironment(macCatalyst)
                 .navigationBarTitleDisplayMode(.inline)
+#endif
             }
         }
     }

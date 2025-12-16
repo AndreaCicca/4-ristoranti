@@ -1,4 +1,7 @@
 import SwiftUI
+#if os(macOS)
+import AppKit
+#endif
 
 struct EpisodeDetailView: View {
     let episode: Episode
@@ -21,7 +24,11 @@ struct EpisodeDetailView: View {
                     }
                 }
                 .padding()
+#if os(iOS) || targetEnvironment(macCatalyst)
                 .background(Color(.secondarySystemBackground))
+#else
+                .background(Color(NSColor.windowBackgroundColor))
+#endif
                 .cornerRadius(12)
                 
                 VStack(alignment: .leading, spacing: 10) {
@@ -68,7 +75,11 @@ struct EpisodeDetailView: View {
                             }
                             .padding(.vertical, 8)
                             .padding(.horizontal)
+#if os(iOS) || targetEnvironment(macCatalyst)
                             .background(Color(.secondarySystemBackground))
+#else
+                            .background(Color(NSColor.windowBackgroundColor))
+#endif
                             .cornerRadius(8)
                         }
                     }
@@ -79,7 +90,9 @@ struct EpisodeDetailView: View {
             .padding()
         }
         .navigationTitle(episode.Location)
+    #if os(iOS) || targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
+    #endif
     }
     
     func searchURL(for query: String) -> URL {

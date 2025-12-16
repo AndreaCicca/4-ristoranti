@@ -21,9 +21,15 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
+        #if os(iOS) || targetEnvironment(macCatalyst)
         if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
             locationManager.startUpdatingLocation()
         }
+        #else
+        if authorizationStatus == .authorized || authorizationStatus == .authorizedAlways {
+            locationManager.startUpdatingLocation()
+        }
+        #endif
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
