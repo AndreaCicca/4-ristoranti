@@ -3,6 +3,7 @@ import MapKit
 
 struct RestaurantMapView: View {
     @ObservedObject var dataService: DataService
+    @StateObject private var locationManager = LocationManager()
     
     // Center on Italy
     @State private var position: MapCameraPosition = .region(
@@ -30,6 +31,7 @@ struct RestaurantMapView: View {
         NavigationStack {
             ZStack(alignment: .top) {
                 Map(position: $position, selection: $selectedGroup) {
+                    UserAnnotation()
                     ForEach(groupedEpisodes) { group in
                         Marker(group.title, coordinate: group.coordinate)
                             .tag(group)
@@ -46,14 +48,9 @@ struct RestaurantMapView: View {
                     }
                     Spacer()
                     Button {
-                        position = .region(
-                            MKCoordinateRegion(
-                                center: CLLocationCoordinate2D(latitude: 41.8719, longitude: 12.5674),
-                                span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
-                            )
-                        )
+                        centerOnUserLocation()
                     } label: {
-                        Image(systemName: "scope")
+                        Image(systemName: locationManager.userLocation == nil ? "location" : "location.fill")
                             .font(.headline)
                             .padding(10)
                             .background(.ultraThinMaterial, in: Circle())
@@ -83,6 +80,20 @@ struct RestaurantMapView: View {
                 .frame(minWidth: 500, minHeight: group.episodes.count > 1 ? 600 : 400)
 #endif
         }
+    }
+
+    private func centerOnUserLocation() {
+        guard let userLocation = locationManager.userLocation else {
+            locationManager.requestPermission()
+            return
+        }
+
+        position = .region(
+            MKCoordinateRegion(
+                center: userLocation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.45, longitudeDelta: 0.45)
+            )
+        )
     }
 }
 

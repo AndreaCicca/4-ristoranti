@@ -379,48 +379,80 @@ struct AISuggestionsView: View {
                         }
 
                         ForEach(Array(viewModel.suggestions.enumerated()), id: \.element.id) { index, suggestion in
-                            VStack(alignment: .leading, spacing: 10) {
-                                HStack(alignment: .top) {
-                                    Text("#\(index + 1)")
-                                        .font(.caption.bold())
-                                        .padding(.horizontal, 8)
-                                        .padding(.vertical, 4)
-                                        .background(Color.blue.opacity(0.15), in: Capsule())
-
-                                    Text(suggestion.title)
-                                        .font(.headline)
-                                        .lineLimit(2)
-
-                                    Spacer()
-
-                                    Text("\(suggestion.score)")
-                                        .font(.title3.weight(.bold))
-                                        .foregroundStyle(scoreColor(suggestion.score))
+                            if let destinationEpisode = matchingEpisode(for: suggestion) {
+                                NavigationLink(destination: EpisodeDetailView(episode: destinationEpisode)) {
+                                    suggestionCard(for: suggestion, rank: index + 1, isTappable: true)
                                 }
-
-                                ProgressView(value: Double(suggestion.score), total: 100)
-                                    .tint(scoreColor(suggestion.score))
-
-                                Text(suggestion.reason)
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-
-                                HStack(spacing: 14) {
-                                    Label(suggestion.location, systemImage: "mappin.and.ellipse")
-                                    Label(suggestion.winner, systemImage: "trophy.fill")
-                                }
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
+                                .buttonStyle(.plain)
+                            } else {
+                                suggestionCard(for: suggestion, rank: index + 1, isTappable: false)
                             }
-                            .padding(16)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                         }
                     }
                     .padding()
                 }
             }
             .navigationTitle("AI Locale")
+        }
+    }
+
+    @ViewBuilder
+    private func suggestionCard(for suggestion: AISuggestion, rank: Int, isTappable: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .top) {
+                Text("#\(rank)")
+                    .font(.caption.bold())
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.blue.opacity(0.15), in: Capsule())
+
+                Text(suggestion.title)
+                    .font(.headline)
+                    .lineLimit(2)
+
+                Spacer()
+
+                if isTappable {
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
+
+                Text("\(suggestion.score)")
+                    .font(.title3.weight(.bold))
+                    .foregroundStyle(scoreColor(suggestion.score))
+            }
+
+            ProgressView(value: Double(suggestion.score), total: 100)
+                .tint(scoreColor(suggestion.score))
+
+            Text(suggestion.reason)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            HStack(spacing: 14) {
+                Label(suggestion.location, systemImage: "mappin.and.ellipse")
+                Label(suggestion.winner, systemImage: "trophy.fill")
+            }
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+
+    private func matchingEpisode(for suggestion: AISuggestion) -> Episode? {
+        let locationQuery = suggestion.location.trimmingCharacters(in: .whitespacesAndNewlines)
+        let winnerQuery = suggestion.winner.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return dataService.episodes.first { episode in
+            let locationMatch = episode.Location.localizedCaseInsensitiveContains(locationQuery) ||
+                locationQuery.localizedCaseInsensitiveContains(episode.Location)
+            let winnerMatch = winnerQuery.isEmpty || episode.Vincitore.localizedCaseInsensitiveContains(winnerQuery)
+            return locationMatch && winnerMatch
+        } ?? dataService.episodes.first { episode in
+            episode.Location.localizedCaseInsensitiveContains(locationQuery)
         }
     }
 
