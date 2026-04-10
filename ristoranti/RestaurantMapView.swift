@@ -27,11 +27,45 @@ struct RestaurantMapView: View {
     }
     
     var body: some View {
-        Map(position: $position, selection: $selectedGroup) {
-            ForEach(groupedEpisodes) { group in
-                Marker(group.title, coordinate: group.coordinate)
-                    .tag(group)
+        NavigationStack {
+            ZStack(alignment: .top) {
+                Map(position: $position, selection: $selectedGroup) {
+                    ForEach(groupedEpisodes) { group in
+                        Marker(group.title, coordinate: group.coordinate)
+                            .tag(group)
+                    }
+                }
+
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Mappa Ristoranti")
+                            .font(.headline.weight(.bold))
+                        Text("\(groupedEpisodes.count) location")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button {
+                        position = .region(
+                            MKCoordinateRegion(
+                                center: CLLocationCoordinate2D(latitude: 41.8719, longitude: 12.5674),
+                                span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)
+                            )
+                        )
+                    } label: {
+                        Image(systemName: "scope")
+                            .font(.headline)
+                            .padding(10)
+                            .background(.ultraThinMaterial, in: Circle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(12)
+                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .padding(.horizontal)
+                .padding(.top, 10)
             }
+            .navigationTitle("Mappa")
         }
         .sheet(item: $selectedGroup) { group in
 #if os(iOS) || targetEnvironment(macCatalyst)
@@ -80,13 +114,22 @@ struct GroupDetailSheet: View {
             } else {
                 List(group.episodes) { episode in
                     NavigationLink(destination: EpisodeDetailView(episode: episode)) {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 6) {
                             Text(episode.Tema)
-                                .font(.headline)
-                            Text("Stagione \(episode.Stagione) - Puntata \(episode.Puntata)")
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
+                                .font(.headline.weight(.semibold))
+                            HStack {
+                                Text("Stagione \(episode.Stagione) - Puntata \(episode.Puntata)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                                Text(episode.Vincitore)
+                                    .font(.caption.weight(.semibold))
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .background(.blue.opacity(0.12), in: Capsule())
+                            }
                         }
+                        .padding(.vertical, 4)
                     }
                 }
                 .navigationTitle(group.episodes.first?.Location ?? "Episodi")

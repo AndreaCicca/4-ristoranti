@@ -30,6 +30,24 @@ struct EpisodeListView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Esplora Episodi")
+                            .font(.title2.weight(.bold))
+                        Text("\(filteredEpisodes.count) risultati in \(sortedSeasons.count) stagioni")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 10)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .listRowBackground(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .padding(.vertical, 4)
+                    )
+                    .listRowSeparator(.hidden)
+                }
+
                 ForEach(sortedSeasons, id: \.self) { season in
                     Section {
                         ForEach(episodesBySeason[season]!) { episode in
@@ -56,9 +74,12 @@ struct EpisodeListView: View {
                                             .textCase(.uppercase)
 
                                         Text(episode.Vincitore)
-                                            .font(.headline.weight(.semibold))
+                                            .font(.subheadline.weight(.semibold))
                                             .multilineTextAlignment(.trailing)
                                             .lineLimit(2)
+                                            .padding(.horizontal, 8)
+                                            .padding(.vertical, 4)
+                                            .background(.blue.opacity(0.1), in: Capsule())
 
                                         Text("Ep. \(episode.Puntata)")
                                             .font(.caption2.monospacedDigit())
@@ -70,7 +91,7 @@ struct EpisodeListView: View {
                             .listRowSeparator(.hidden)
                             .listRowBackground(
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                                    .fill(Color.primary.opacity(0.05))
+                                    .fill(.regularMaterial)
                                     .padding(.vertical, 4)
                             )
                         }
@@ -86,6 +107,14 @@ struct EpisodeListView: View {
             .listStyle(.automatic)
 #else
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(
+                LinearGradient(
+                    colors: [Color.blue.opacity(0.06), Color.clear],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
 #endif
             .navigationTitle("Episodi")
             .searchable(text: $searchText, prompt: "Cerca location, vincitore...")

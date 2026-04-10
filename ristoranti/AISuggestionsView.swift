@@ -61,14 +61,16 @@ final class AISuggestionsViewModel: ObservableObject {
             }
             .prefix(5)
 
-        suggestions = sorted.map { episode, score in
-            AISuggestion(
-                title: "\(episode.Location) - \(episode.Tema)",
-                reason: buildReason(for: episode, with: tokens, score: score),
-                location: episode.Location,
-                winner: episode.Vincitore,
-                score: score
-            )
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+            suggestions = sorted.map { episode, score in
+                AISuggestion(
+                    title: "\(episode.Location) - \(episode.Tema)",
+                    reason: buildReason(for: episode, with: tokens, score: score),
+                    location: episode.Location,
+                    winner: episode.Vincitore,
+                    score: score
+                )
+            }
         }
     }
 
@@ -117,7 +119,10 @@ final class AISuggestionsViewModel: ObservableObject {
         } else {
             engineStatus = "Suggerimenti generati da Apple Foundation Models"
         }
-        return parsed
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+            suggestions = parsed
+        }
+        return suggestions
     }
 
     private func parseModelOutput(_ text: String, episodes: [Episode]) -> [AISuggestion] {
@@ -234,92 +239,197 @@ struct AISuggestionsView: View {
     @ObservedObject var dataService: DataService
     @StateObject private var viewModel = AISuggestionsViewModel()
 
+    private let quickPrompts = [
+        "Cena romantica a Milano",
+        "Best pizza a Napoli",
+        "Atmosfera elegante a Roma",
+        "Locale giovane a Torino"
+    ]
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("Suggerimenti AI")
-                            .font(.title.bold())
-                        Label(viewModel.modelLabel, systemImage: "cpu")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                        if !viewModel.engineStatus.isEmpty {
-                            Text(viewModel.engineStatus)
+            ZStack {
+                LinearGradient(
+                    colors: [Color.cyan.opacity(0.22), Color.indigo.opacity(0.18), Color.mint.opacity(0.12)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+
+                Circle()
+                    .fill(Color.blue.opacity(0.2))
+                    .frame(width: 280, height: 280)
+                    .blur(radius: 44)
+                    .offset(x: 160, y: -240)
+
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 22) {
+                        VStack(alignment: .leading, spacing: 10) {
+                            HStack(alignment: .center) {
+                                VStack(alignment: .leading, spacing: 6) {
+                                    Text("AI Concierge")
+                                        .font(.largeTitle.weight(.heavy))
+                                    Text("Consigli personalizzati per trovare la tua prossima tappa")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                Image(systemName: "sparkles.rectangle.stack.fill")
+                                    .font(.title)
+                                    .foregroundStyle(.blue)
+                            }
+
+                            HStack(spacing: 10) {
+                                Label(viewModel.modelLabel, systemImage: "cpu")
+                                    .font(.caption.weight(.semibold))
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 6)
+                                    .background(.ultraThinMaterial, in: Capsule())
+
+                                if !viewModel.engineStatus.isEmpty {
+                                    Label(viewModel.engineStatus, systemImage: "checkmark.seal")
+                                        .font(.caption)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .background(.ultraThinMaterial, in: Capsule())
+                                }
+                            }
+
+                            Text("Elaborazione on-device. Nessun invio a servizi cloud.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+                        .padding(18)
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Descrivi il locale ideale")
+                                .font(.headline)
+
+                            TextField("Es. cena romantica, cucina contemporanea, zona Navigli", text: $viewModel.prompt, axis: .vertical)
+                                .textFieldStyle(.plain)
+                                .lineLimit(2...5)
+                                .padding(12)
+                                .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 8) {
+                                    ForEach(quickPrompts, id: \.self) { quickPrompt in
+                                        Button(quickPrompt) {
+                                            viewModel.prompt = quickPrompt
+                                        }
+                                        .buttonStyle(.plain)
+                                        .font(.caption.weight(.semibold))
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 8)
+                                        .background(.ultraThinMaterial, in: Capsule())
+                                    }
+                                }
+                            }
+                        }
+                        .padding(16)
+                        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+
+                        Button {
+                            Task {
+                                await viewModel.generateSuggestions(from: dataService.episodes)
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: viewModel.isLoading ? "hourglass" : "sparkles")
+                                Text(viewModel.isLoading ? "Analisi in corso..." : "Genera suggerimenti")
+                                    .fontWeight(.semibold)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .foregroundStyle(.white)
+                            .background(
+                                LinearGradient(
+                                    colors: [Color.blue, Color.cyan],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                ),
+                                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .disabled(viewModel.isLoading)
+                        .opacity(viewModel.isLoading ? 0.75 : 1)
+
+                        if viewModel.suggestions.isEmpty, !viewModel.isLoading {
+                            VStack(spacing: 10) {
+                                Image(systemName: "sparkles")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                                Text("Nessun suggerimento")
+                                    .font(.headline)
+                                Text("Inserisci una richiesta e tocca Genera suggerimenti.")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 28)
+                            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        }
+
+                        if !viewModel.suggestions.isEmpty {
+                            Text("Top suggerimenti")
+                                .font(.title3.weight(.bold))
+                                .padding(.top, 4)
+                        }
+
+                        ForEach(Array(viewModel.suggestions.enumerated()), id: \.element.id) { index, suggestion in
+                            VStack(alignment: .leading, spacing: 10) {
+                                HStack(alignment: .top) {
+                                    Text("#\(index + 1)")
+                                        .font(.caption.bold())
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.blue.opacity(0.15), in: Capsule())
+
+                                    Text(suggestion.title)
+                                        .font(.headline)
+                                        .lineLimit(2)
+
+                                    Spacer()
+
+                                    Text("\(suggestion.score)")
+                                        .font(.title3.weight(.bold))
+                                        .foregroundStyle(scoreColor(suggestion.score))
+                                }
+
+                                ProgressView(value: Double(suggestion.score), total: 100)
+                                    .tint(scoreColor(suggestion.score))
+
+                                Text(suggestion.reason)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+
+                                HStack(spacing: 14) {
+                                    Label(suggestion.location, systemImage: "mappin.and.ellipse")
+                                    Label(suggestion.winner, systemImage: "trophy.fill")
+                                }
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                        }
-                        Text("Elaborazione in locale sul dispositivo. Nessun invio a servizi cloud.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Descrivi cosa cerchi")
-                            .font(.headline)
-
-                        TextField("Es. cena romantica, cucina contemporanea, zona Navigli", text: $viewModel.prompt, axis: .vertical)
-                            .textFieldStyle(.roundedBorder)
-                            .lineLimit(2...5)
-                    }
-
-                    Button {
-                        Task {
-                            await viewModel.generateSuggestions(from: dataService.episodes)
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "sparkles")
-                            Text(viewModel.isLoading ? "Analisi in corso..." : "Genera suggerimenti")
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .disabled(viewModel.isLoading)
-
-                    if viewModel.suggestions.isEmpty, !viewModel.isLoading {
-                        ContentUnavailableView(
-                            "Nessun suggerimento",
-                            systemImage: "lightbulb",
-                            description: Text("Inserisci una richiesta e premi Genera suggerimenti.")
-                        )
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, 24)
-                    }
-
-                    ForEach(viewModel.suggestions) { suggestion in
-                        VStack(alignment: .leading, spacing: 8) {
-                            HStack {
-                                Text(suggestion.title)
-                                    .font(.headline)
-                                    .lineLimit(2)
-                                Spacer()
-                                Text("\(suggestion.score)")
-                                    .font(.caption.bold())
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(.blue.opacity(0.15), in: Capsule())
                             }
-
-                            Text(suggestion.reason)
-                                .font(.subheadline)
-                                .foregroundStyle(.secondary)
-
-                            HStack(spacing: 12) {
-                                Label(suggestion.location, systemImage: "mappin.and.ellipse")
-                                Label(suggestion.winner, systemImage: "trophy")
-                            }
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
                     }
+                    .padding()
                 }
-                .padding()
             }
             .navigationTitle("AI Locale")
+        }
+    }
+
+    private func scoreColor(_ score: Int) -> Color {
+        switch score {
+        case 80...100: return .green
+        case 60..<80: return .blue
+        case 40..<60: return .orange
+        default: return .red
         }
     }
 }

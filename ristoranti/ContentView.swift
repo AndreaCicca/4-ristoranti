@@ -32,6 +32,7 @@ struct ContentView: View {
                     Label("AI", systemImage: "sparkles")
                 }
         }
+        .tint(.blue)
     }
 }
 
