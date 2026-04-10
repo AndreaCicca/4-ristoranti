@@ -26,6 +26,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("Vicino a me", systemImage: "location.fill")
                 }
+
+            AISuggestionsView(dataService: dataService)
+                .tabItem {
+                    Label("AI", systemImage: "sparkles")
+                }
         }
     }
 }

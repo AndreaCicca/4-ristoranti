@@ -80,6 +80,22 @@ Output atteso:
 - app compilata in `build/DerivedData/.../Release/ristoranti.app`
 - installer in `build/4Ristoranti.dmg`
 
+## Rilevamento errori di build
+
+Per estrarre velocemente gli errori della compilazione in un report leggibile:
+
+1. Rendi eseguibile lo script (solo la prima volta):
+	`chmod +x detect_build_errors.sh`
+2. Esegui analisi build Release:
+	`./detect_build_errors.sh`
+3. Oppure analisi build Debug:
+	`./detect_build_errors.sh Debug`
+
+Lo script salva:
+
+- log completo in `build/logs/build_<CONFIG>_<timestamp>.log`
+- report errori in `build/logs/build_errors_<CONFIG>_<timestamp>.txt`
+
 ## Pipeline dati
 
 Flusso consigliato:
