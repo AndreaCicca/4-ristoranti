@@ -31,21 +31,62 @@ struct EpisodeListView: View {
         NavigationStack {
             List {
                 ForEach(sortedSeasons, id: \.self) { season in
-                    Section(header: Text("Stagione \(season)")) {
+                    Section {
                         ForEach(episodesBySeason[season]!) { episode in
                             NavigationLink(destination: EpisodeDetailView(episode: episode)) {
-                                VStack(alignment: .leading) {
-                                    Text(episode.Location)
-                                        .font(.headline)
-                                    Text("Vincitore: \(episode.Vincitore)")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
+                                HStack(alignment: .top, spacing: 14) {
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text(episode.Location)
+                                            .font(.title3.weight(.bold))
+                                            .foregroundStyle(.primary)
+                                            .lineLimit(1)
+
+                                        Text(episode.Tema)
+                                            .font(.footnote.weight(.semibold))
+                                            .foregroundStyle(.secondary)
+                                            .lineLimit(2)
+                                    }
+
+                                    Spacer(minLength: 12)
+
+                                    VStack(alignment: .trailing, spacing: 4) {
+                                        Text("Stagione \(season)")
+                                            .font(.caption.weight(.bold))
+                                            .foregroundStyle(.secondary)
+                                            .textCase(.uppercase)
+
+                                        Text(episode.Vincitore)
+                                            .font(.headline.weight(.semibold))
+                                            .multilineTextAlignment(.trailing)
+                                            .lineLimit(2)
+
+                                        Text("Ep. \(episode.Puntata)")
+                                            .font(.caption2.monospacedDigit())
+                                            .foregroundStyle(.secondary)
+                                    }
                                 }
+                                .padding(.vertical, 8)
                             }
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                    .fill(Color.primary.opacity(0.05))
+                                    .padding(.vertical, 4)
+                            )
                         }
+                    } header: {
+                        Text("Stagione \(season)")
+                            .font(.headline.weight(.heavy))
+                            .foregroundStyle(.primary)
+                            .textCase(nil)
                     }
                 }
             }
+#if os(macOS)
+            .listStyle(.automatic)
+#else
+            .listStyle(.insetGrouped)
+#endif
             .navigationTitle("Episodi")
             .searchable(text: $searchText, prompt: "Cerca location, vincitore...")
             .overlay {
