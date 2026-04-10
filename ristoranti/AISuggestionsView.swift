@@ -1,5 +1,8 @@
 import SwiftUI
 import Combine
+#if canImport(FoundationModels)
+import FoundationModels
+#endif
 
 struct AISuggestion: Identifiable {
     let id = UUID()
@@ -15,6 +18,7 @@ final class AISuggestionsViewModel: ObservableObject {
     @Published var prompt: String = "Cena romantica a Milano con atmosfera moderna"
     @Published var suggestions: [AISuggestion] = []
     @Published var isLoading: Bool = false
+    @Published var engineStatus: String = ""
 
 #if canImport(FoundationModels)
     let modelLabel: String = "Apple Foundation Models (on-device)"
@@ -32,7 +36,17 @@ final class AISuggestionsViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
+#if canImport(FoundationModels)
+        if #available(macOS 26.0, iOS 26.0, visionOS 26.0, *) {
+            if let aiSuggestions = try? await generateWithFoundationModel(prompt: cleanPrompt, episodes: episodes), !aiSuggestions.isEmpty {
+                suggestions = aiSuggestions
+                return
+            }
+        }
+#endif
+
         // Local deterministic scoring pipeline: no cloud calls, runs fully on device.
+        engineStatus = "Fallback locale attivo"
         let tokens = tokenize(cleanPrompt)
         let sorted = episodes
             .map { episode in
@@ -57,6 +71,101 @@ final class AISuggestionsViewModel: ObservableObject {
             )
         }
     }
+
+#if canImport(FoundationModels)
+    @available(macOS 26.0, iOS 26.0, visionOS 26.0, *)
+    private func generateWithFoundationModel(prompt: String, episodes: [Episode]) async throws -> [AISuggestion] {
+        let model = SystemLanguageModel.default
+        guard case .available = model.availability else {
+            engineStatus = "Modello Apple non disponibile su questo dispositivo"
+            return []
+        }
+
+        if !model.supportsLocale(Locale(identifier: "it_IT")) {
+            engineStatus = "Locale non supportata dal modello, uso fallback"
+            return []
+        }
+
+        let compactEpisodes = episodes.prefix(80).map { episode in
+            "- \(episode.Location) | \(episode.Tema) | vincitore: \(episode.Vincitore)"
+        }.joined(separator: "\n")
+
+        let instructions = """
+        Sei un assistente che suggerisce episodi del dataset di 4 Ristoranti.
+        Devi proporre massimo 5 suggerimenti coerenti con la richiesta.
+        Rispondi solo con righe in questo formato, senza testo aggiuntivo:
+        location|winner|reason|score
+        score deve essere un intero tra 0 e 100.
+        reason deve essere breve e in italiano.
+        """
+
+        let session = LanguageModelSession(instructions: instructions)
+        let fullPrompt = """
+        Richiesta utente: \(prompt)
+
+        Episodi disponibili:
+        \(compactEpisodes)
+        """
+
+        let options = GenerationOptions(temperature: 0.4)
+        let response = try await session.respond(to: fullPrompt, options: options)
+        let rawOutput = String(describing: response)
+
+        let parsed = parseModelOutput(rawOutput, episodes: episodes)
+        if parsed.isEmpty {
+            engineStatus = "Output AI non strutturato, uso fallback"
+        } else {
+            engineStatus = "Suggerimenti generati da Apple Foundation Models"
+        }
+        return parsed
+    }
+
+    private func parseModelOutput(_ text: String, episodes: [Episode]) -> [AISuggestion] {
+        var items: [AISuggestion] = []
+
+        let lines = text
+            .split(separator: "\n")
+            .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { $0.contains("|") }
+
+        for line in lines.prefix(5) {
+            let parts = line.split(separator: "|", omittingEmptySubsequences: false).map {
+                String($0).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+
+            guard parts.count >= 4 else { continue }
+
+            let location = parts[0]
+            let winner = parts[1]
+            let reason = parts[2]
+            let score = max(0, min(100, Int(parts[3]) ?? 60))
+
+            let matchedEpisode = episodes.first {
+                $0.Location.localizedCaseInsensitiveContains(location) ||
+                location.localizedCaseInsensitiveContains($0.Location)
+            }
+
+            let title: String
+            if let matchedEpisode {
+                title = "\(matchedEpisode.Location) - \(matchedEpisode.Tema)"
+            } else {
+                title = "\(location) - Suggerimento AI"
+            }
+
+            items.append(
+                AISuggestion(
+                    title: title,
+                    reason: reason,
+                    location: location,
+                    winner: winner,
+                    score: score
+                )
+            )
+        }
+
+        return items
+    }
+#endif
 
     private func tokenize(_ text: String) -> [String] {
         text
@@ -135,6 +244,11 @@ struct AISuggestionsView: View {
                         Label(viewModel.modelLabel, systemImage: "cpu")
                             .font(.footnote)
                             .foregroundStyle(.secondary)
+                        if !viewModel.engineStatus.isEmpty {
+                            Text(viewModel.engineStatus)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                         Text("Elaborazione in locale sul dispositivo. Nessun invio a servizi cloud.")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
