@@ -2,7 +2,7 @@
 
 Applicazione SwiftUI che visualizza le puntate di "4 Ristoranti" su mappa, in lista e in base alla distanza dalla posizione utente.
 
-![Screenshot mappa app](asset/screenshot-mappa.png)
+![Screenshot mappa app](asset/screenshot-mappa-readme.png)
 
 ## Panoramica
 
