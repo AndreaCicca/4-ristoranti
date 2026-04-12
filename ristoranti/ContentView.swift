@@ -23,6 +23,17 @@ enum NavigationItem: String, CaseIterable, Hashable {
     }
 }
 
+struct NavigationFocusedValueKey: FocusedValueKey {
+    typealias Value = Binding<NavigationItem?>
+}
+
+extension FocusedValues {
+    var selectedNavigationItem: Binding<NavigationItem?>? {
+        get { self[NavigationFocusedValueKey.self] }
+        set { self[NavigationFocusedValueKey.self] = newValue }
+    }
+}
+
 struct ContentView: View {
     @StateObject private var dataService = DataService()
     @State private var selectedItem: NavigationItem? = .map
@@ -48,6 +59,12 @@ struct ContentView: View {
             case .none:
                 Text("Seleziona una voce dal menu")
                     .foregroundColor(.secondary)
+            }
+        }
+        .focusedSceneValue(\.selectedNavigationItem, $selectedItem)
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("dockNavigate"))) { notification in
+            if let item = notification.object as? NavigationItem {
+                selectedItem = item
             }
         }
         .tint(.blue)
