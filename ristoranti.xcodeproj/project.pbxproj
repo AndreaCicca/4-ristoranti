@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		65422EF72EE4DDC10019CC3F /* ristoranti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ristoranti.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		65422EF72EE4DDC10019CC3F /* 4 Ristoranti.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "4 Ristoranti.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		65422EF82EE4DDC10019CC3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				65422EF72EE4DDC10019CC3F /* ristoranti.app */,
+				65422EF72EE4DDC10019CC3F /* 4 Ristoranti.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,7 +67,7 @@
 			packageProductDependencies = (
 			);
 			productName = ristoranti;
-			productReference = 65422EF72EE4DDC10019CC3F /* ristoranti.app */;
+			productReference = 65422EF72EE4DDC10019CC3F /* 4 Ristoranti.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -264,7 +264,9 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "4 Ristoranti";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usiamo la tua posizione per mostrarti i ristoranti vicini.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Usiamo la tua posizione per mostrarti i ristoranti vicini.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -307,7 +309,9 @@
 				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "4 Ristoranti";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usiamo la tua posizione per mostrarti i ristoranti vicini.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "Usiamo la tua posizione per mostrarti i ristoranti vicini.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

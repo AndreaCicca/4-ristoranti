@@ -7,29 +7,43 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var userLocation: CLLocation?
     @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
+    private var isAuthorized: Bool {
+        #if os(macOS)
+        return authorizationStatus == .authorized || authorizationStatus == .authorizedAlways
+        #else
+        return authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways || authorizationStatus == .authorized
+        #endif
+    }
+    
     override init() {
         super.init()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        self.authorizationStatus = locationManager.authorizationStatus
+        
+        // Se avevamo già il permesso in precedenza, fai partire subito la ricerca
+        if isAuthorized {
+            locationManager.startUpdatingLocation()
+        }
     }
     
     func requestPermission() {
-        locationManager.requestWhenInUseAuthorization()
+        if locationManager.authorizationStatus == .notDetermined {
+            #if os(macOS)
+            locationManager.requestAlwaysAuthorization()
+            #else
+            locationManager.requestWhenInUseAuthorization()
+            #endif
+        } else if isAuthorized {
+            locationManager.startUpdatingLocation()
+        }
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         authorizationStatus = manager.authorizationStatus
-        #if os(iOS) || targetEnvironment(macCatalyst)
-        if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
+        if isAuthorized {
             locationManager.startUpdatingLocation()
         }
-        #else
-        if authorizationStatus == .authorized || authorizationStatus == .authorizedAlways {
-            locationManager.startUpdatingLocation()
-        }
-        #endif
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

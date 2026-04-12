@@ -14,6 +14,7 @@ struct RestaurantMapView: View {
     )
     
     @State private var selectedGroup: LocationGroup?
+    @State private var isWaitingForLocation = false
     
     var groupedEpisodes: [LocationGroup] {
         let grouped = Dictionary(grouping: dataService.episodes.filter { $0.Location != "Italia" }) { episode -> String in
@@ -63,6 +64,17 @@ struct RestaurantMapView: View {
                 .padding(.top, 10)
             }
             .navigationTitle("Mappa")
+            .onChange(of: locationManager.userLocation) { _, newLocation in
+                if isWaitingForLocation, let location = newLocation {
+                    isWaitingForLocation = false
+                    position = .region(
+                        MKCoordinateRegion(
+                            center: location.coordinate,
+                            span: MKCoordinateSpan(latitudeDelta: 0.45, longitudeDelta: 0.45)
+                        )
+                    )
+                }
+            }
         }
         .sheet(item: $selectedGroup) { group in
 #if os(iOS) || targetEnvironment(macCatalyst)
@@ -84,6 +96,7 @@ struct RestaurantMapView: View {
 
     private func centerOnUserLocation() {
         guard let userLocation = locationManager.userLocation else {
+            isWaitingForLocation = true
             locationManager.requestPermission()
             return
         }
