@@ -268,15 +268,15 @@ struct AISuggestionsView: View {
                             HStack(alignment: .center) {
                                 VStack(alignment: .leading, spacing: 6) {
                                     Text("AI Concierge")
-                                        .font(.largeTitle.weight(.heavy))
+                                        .appleIntelligenceText()
                                     Text("Consigli personalizzati per trovare la tua prossima tappa")
                                         .font(.subheadline)
                                         .foregroundStyle(.secondary)
                                 }
                                 Spacer()
-                                Image(systemName: "sparkles.rectangle.stack.fill")
-                                    .font(.title)
-                                    .foregroundStyle(.blue)
+                                Image(systemName: "apple.intelligence")
+                                    .font(.system(size: 40))
+                                    .foregroundStyle(Gradient(colors: [.purple, .red, .orange, .blue, .cyan]))
                             }
 
                             HStack(spacing: 10) {
@@ -306,11 +306,15 @@ struct AISuggestionsView: View {
                             Text("Descrivi il locale ideale")
                                 .font(.headline)
 
-                            TextField("Es. cena romantica, cucina contemporanea, zona Navigli", text: $viewModel.prompt, axis: .vertical)
-                                .textFieldStyle(.plain)
-                                .lineLimit(2...5)
-                                .padding(12)
-                                .background(Color.primary.opacity(0.06), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            AppleIntelligenceTextField(
+                                text: $viewModel.prompt,
+                                placeholder: "Es. cena romantica, cucina contemporanea..."
+                            )
+                            .onSubmit {
+                                Task {
+                                    await viewModel.generateSuggestions(from: dataService.episodes)
+                                }
+                            }
 
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: 8) {
@@ -357,10 +361,10 @@ struct AISuggestionsView: View {
                         .opacity(viewModel.isLoading ? 0.75 : 1)
 
                         if viewModel.suggestions.isEmpty, !viewModel.isLoading {
-                            VStack(spacing: 10) {
-                                Image(systemName: "sparkles")
-                                    .font(.title2)
-                                    .foregroundStyle(.secondary)
+                            VStack(spacing: 12) {
+                                Image(systemName: "apple.intelligence")
+                                    .font(.system(size: 40))
+                                    .foregroundStyle(Gradient(colors: [.purple, .red, .orange, .blue, .cyan]))
                                 Text("Nessun suggerimento")
                                     .font(.headline)
                                 Text("Inserisci una richiesta e tocca Genera suggerimenti.")
@@ -393,6 +397,7 @@ struct AISuggestionsView: View {
                 }
             }
             .navigationTitle("AI Locale")
+            .appleIntelligenceGlow(isActive: viewModel.isLoading)
         }
     }
 
@@ -468,4 +473,100 @@ struct AISuggestionsView: View {
 
 #Preview {
     AISuggestionsView(dataService: DataService())
+}
+
+// MARK: - Componenti AI Custom (No dipendenze esterne)
+
+extension View {
+    func appleIntelligenceText() -> some View {
+        self
+            .font(.system(size: 28, weight: .bold, design: .rounded))
+            .foregroundStyle(
+                LinearGradient(
+                    colors: [.purple, .red, .orange, .blue, .cyan],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+    }
+    
+    func appleIntelligenceGlow(isActive: Bool) -> some View {
+        self.modifier(AppleIntelligenceScreenGlowModifier(isActive: isActive))
+    }
+}
+
+struct AppleIntelligenceTextField: View {
+    @Binding var text: String
+    var placeholder: String
+    
+    @State private var isFocused: Bool = false
+    @State private var rotation: Double = 0
+
+    var body: some View {
+        TextField(placeholder, text: $text)
+            .textFieldStyle(.plain)
+            .padding(14)
+            .background(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .strokeBorder(
+                        AngularGradient(
+                            gradient: Gradient(colors: [.purple, .red, .orange, .blue, .cyan, .purple]),
+                            center: .center,
+                            startAngle: .degrees(rotation),
+                            endAngle: .degrees(rotation + 360)
+                        ),
+                        lineWidth: text.isEmpty ? 1 : 2
+                    )
+                    .opacity(text.isEmpty ? 0.4 : 1.0)
+            )
+            .background(Color.primary.opacity(0.04), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .animation(.easeInOut(duration: 0.3), value: text)
+            .onAppear {
+                withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: false)) {
+                    rotation = 360
+                }
+            }
+    }
+}
+
+private struct AppleIntelligenceScreenGlowModifier: ViewModifier {
+    var isActive: Bool
+    
+    @State private var rotation: Double = 0
+    @State private var opacityPulse: Double = 0.5
+    
+    func body(content: Content) -> some View {
+        content
+            // Applichiamo i layer DIETRO il contenuto o SOPRA ma controllati dalla safe area nativa (no ignoresSafeArea full-window leak)
+            .overlay {
+                if isActive {
+                    GeometryReader { proxy in
+                        RoundedRectangle(cornerRadius: 0, style: .continuous) // Copre l'intero viewport *interno* disponibile
+                            .stroke(
+                                AngularGradient(
+                                    gradient: Gradient(colors: [.purple, .red, .orange, .blue, .cyan, .purple]),
+                                    center: .center,
+                                    startAngle: .degrees(rotation),
+                                    endAngle: .degrees(rotation + 360)
+                                ),
+                                lineWidth: 6
+                            )
+                            .blur(radius: 12)
+                            .opacity(opacityPulse)
+                            .padding(-3)
+                            .allowsHitTesting(false)
+                    }
+                    .transition(.opacity)
+                    .onAppear {
+                        withAnimation(.linear(duration: 5.0).repeatForever(autoreverses: false)) {
+                            rotation = 360
+                        }
+                        withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
+                            opacityPulse = 0.95
+                        }
+                    }
+                }
+            }
+            .animation(.easeInOut(duration: 0.6), value: isActive)
+    }
 }
