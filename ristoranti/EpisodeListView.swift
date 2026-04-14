@@ -43,7 +43,6 @@ struct EpisodeListView: View {
                     .listRowBackground(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .fill(.ultraThinMaterial)
-                            .padding(.vertical, 4)
                     )
                     .listRowSeparator(.hidden)
                 }
@@ -92,7 +91,6 @@ struct EpisodeListView: View {
                             .listRowBackground(
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                                     .fill(.regularMaterial)
-                                    .padding(.vertical, 4)
                             )
                         }
                     } header: {
@@ -107,6 +105,7 @@ struct EpisodeListView: View {
             .listStyle(.automatic)
 #else
             .listStyle(.insetGrouped)
+            .listRowSpacing(8)
             .scrollContentBackground(.hidden)
             .background(
                 LinearGradient(
