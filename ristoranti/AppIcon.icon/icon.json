@@ -21,6 +21,7 @@
         {
           "blend-mode" : "normal",
           "fill" : "automatic",
+          "glass" : false,
           "image-name" : "4-3.png",
           "name" : "4-3"
         }
