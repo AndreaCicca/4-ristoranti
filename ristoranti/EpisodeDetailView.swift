@@ -7,6 +7,9 @@ struct EpisodeDetailView: View {
     let episode: Episode
     @Environment(\.openURL) private var openURL
     
+    @State private var appleMapClicks = 0
+    @State private var googleMapClicks = 0
+    @State private var animateTrophy = 0
     var body: some View {
         ZStack {
             LinearGradient(
@@ -18,31 +21,19 @@ struct EpisodeDetailView: View {
 
             ScrollView {
                 #if os(macOS) || targetEnvironment(macCatalyst)
-                VStack(spacing: 20) {
-                    // Top Row
-                    HStack(spacing: 20) {
+                Grid(horizontalSpacing: 20, verticalSpacing: 20) {
+                    GridRow {
                         heroBox
-                            .frame(maxWidth: .infinity)
-                            .frame(maxHeight: .infinity)
+                            .gridCellColumns(2)
                         infoBox
-                            .frame(width: 320)
-                            .frame(maxHeight: .infinity)
+                            .gridCellColumns(1)
                     }
-                    .fixedSize(horizontal: false, vertical: true)
                     
-                    // Bottom Row
-                    HStack(alignment: .top, spacing: 20) {
+                    GridRow {
                         vincitoreBox
-                            .frame(maxWidth: .infinity)
-                            .frame(maxHeight: .infinity)
                         concorrentiBox
-                            .frame(maxWidth: .infinity)
-                            .frame(maxHeight: .infinity)
                         mappeBox
-                            .frame(maxWidth: .infinity)
-                            .frame(maxHeight: .infinity)
                     }
-                    .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(32)
                 .frame(maxWidth: 1400)
@@ -81,6 +72,7 @@ struct EpisodeDetailView: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .strokeBorder(Color.primary.opacity(0.05), lineWidth: 1)
         )
+        .bentoHover(glowColor: .primary.opacity(0.2))
     }
     
     private var infoBox: some View {
@@ -118,6 +110,7 @@ struct EpisodeDetailView: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .strokeBorder(Color.blue.opacity(0.15), lineWidth: 1)
         )
+        .bentoHover(glowColor: .blue)
     }
     
     private var vincitoreBox: some View {
@@ -130,6 +123,10 @@ struct EpisodeDetailView: View {
                 Image(systemName: "trophy.fill")
                     .font(.title)
                     .foregroundStyle(.yellow)
+                    .symbolEffect(.bounce, value: animateTrophy)
+                    .onTapGesture {
+                        animateTrophy += 1
+                    }
             }
             
             Spacer(minLength: 24)
@@ -155,6 +152,7 @@ struct EpisodeDetailView: View {
         )
         .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
         .shadow(color: Color.orange.opacity(0.3), radius: 12, x: 0, y: 6)
+        .bentoHover(glowColor: .orange)
     }
     
     private var concorrentiBox: some View {
@@ -165,20 +163,7 @@ struct EpisodeDetailView: View {
             let concorrenti = episode.Concorrenti.components(separatedBy: ",")
             VStack(spacing: 8) {
                 ForEach(concorrenti, id: \.self) { concorrente in
-                    Link(destination: searchURL(for: concorrente)) {
-                        HStack {
-                            Text(concorrente.trimmingCharacters(in: .whitespaces))
-                                .font(.callout)
-                            Spacer()
-                            Image(systemName: "magnifyingglass.circle.fill")
-                                .foregroundStyle(.purple)
-                                .font(.title3)
-                        }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 14)
-                        .background(Color.primary.opacity(0.04), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    }
-                    .buttonStyle(.plain)
+                    CompetitorRow(name: concorrente, searchURL: searchURL(for: concorrente))
                 }
             }
         }
@@ -191,6 +176,7 @@ struct EpisodeDetailView: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .strokeBorder(Color.purple.opacity(0.15), lineWidth: 1)
         )
+        .bentoHover(glowColor: .purple)
     }
     
     private var mappeBox: some View {
@@ -202,20 +188,32 @@ struct EpisodeDetailView: View {
             
             VStack(spacing: 12) {
                 Button {
+                    appleMapClicks += 1
                     openURL(appleMapsURL())
                 } label: {
-                    Label("Apri in Apple Maps", systemImage: "map.fill")
-                        .frame(maxWidth: .infinity)
+                    Label {
+                        Text("Apri in Apple Maps")
+                    } icon: {
+                        Image(systemName: "map.fill")
+                            .symbolEffect(.bounce, value: appleMapClicks)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.cyan)
                 .controlSize(.large)
                 
                 Button {
+                    googleMapClicks += 1
                     openURL(googleMapsURL())
                 } label: {
-                    Label("Apri in Google Maps", systemImage: "globe")
-                        .frame(maxWidth: .infinity)
+                    Label {
+                        Text("Apri in Google Maps")
+                    } icon: {
+                        Image(systemName: "globe")
+                            .symbolEffect(.bounce, value: googleMapClicks)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.large)
@@ -230,6 +228,7 @@ struct EpisodeDetailView: View {
             RoundedRectangle(cornerRadius: 28, style: .continuous)
                 .strokeBorder(Color.cyan.opacity(0.2), lineWidth: 1)
         )
+        .bentoHover(glowColor: .cyan)
     }
     
     func searchURL(for query: String) -> URL {
@@ -287,4 +286,60 @@ struct DetailRow: View {
         Latitude: 45.4641943,
         Longitude: 9.1896346
     ))
+}
+
+// MARK: - View Modifiers & Helpers
+
+struct BentoHoverModifier: ViewModifier {
+    let glowColor: Color
+    @State private var isHovered = false
+    
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isHovered ? 1.02 : 1.0)
+            .shadow(color: isHovered ? glowColor.opacity(0.4) : .clear, radius: isHovered ? 24 : 0, x: 0, y: isHovered ? 8 : 0)
+            .animation(.interpolatingSpring(stiffness: 250, damping: 20), value: isHovered)
+            .onHover { hovering in
+                self.isHovered = hovering
+            }
+    }
+}
+
+extension View {
+    func bentoHover(glowColor: Color = .cyan) -> some View {
+        self.modifier(BentoHoverModifier(glowColor: glowColor))
+    }
+}
+
+struct CompetitorRow: View {
+    let name: String
+    let searchURL: URL
+    @State private var isHovered = false
+    @State private var clickCount = 0
+    
+    var body: some View {
+        Link(destination: searchURL) {
+            HStack {
+                Text(name.trimmingCharacters(in: .whitespaces))
+                    .font(.callout)
+                Spacer()
+                Image(systemName: "magnifyingglass.circle.fill")
+                    .foregroundStyle(.purple)
+                    .font(.title3)
+                    .symbolEffect(.bounce, value: clickCount)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 14)
+            .background(Color.primary.opacity(isHovered ? 0.08 : 0.04), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .scaleEffect(isHovered ? 1.02 : 1.0)
+            .animation(.spring(response: 0.2, dampingFraction: 0.7), value: isHovered)
+        }
+        .buttonStyle(.plain)
+        .onHover { hover in
+            isHovered = hover
+        }
+        .simultaneousGesture(TapGesture().onEnded {
+            clickCount += 1
+        })
+    }
 }
