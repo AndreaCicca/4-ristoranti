@@ -130,7 +130,7 @@ struct GroupDetailSheet: View {
                             Text(episode.Tema)
                                 .font(.headline.weight(.semibold))
                             HStack {
-                                Text("Stagione \(episode.Stagione) - Puntata \(episode.Puntata)")
+                                Text("Stagione \(episode.Stagione) • Puntata \(episode.Puntata)")
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                                 Spacer()
