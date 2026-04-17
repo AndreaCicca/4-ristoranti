@@ -67,7 +67,7 @@ struct ContentView: View {
                 selectedItem = item
             }
         }
-        .tint(.blue)
+        .tint(.cyan)
     }
 }
 

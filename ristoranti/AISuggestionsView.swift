@@ -250,14 +250,14 @@ struct AISuggestionsView: View {
         NavigationStack {
             ZStack {
                 LinearGradient(
-                    colors: [Color.cyan.opacity(0.22), Color.indigo.opacity(0.18), Color.mint.opacity(0.12)],
+                    colors: [Color.cyan.opacity(0.2), Color.blue.opacity(0.15), Color.clear],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
                 .ignoresSafeArea()
 
                 Circle()
-                    .fill(Color.blue.opacity(0.2))
+                    .fill(Color.cyan.opacity(0.2))
                     .frame(width: 280, height: 280)
                     .blur(radius: 44)
                     .offset(x: 160, y: -240)
@@ -349,7 +349,7 @@ struct AISuggestionsView: View {
                             .foregroundStyle(.white)
                             .background(
                                 LinearGradient(
-                                    colors: [Color.blue, Color.cyan],
+                                    colors: [Color.cyan, Color.blue],
                                     startPoint: .leading,
                                     endPoint: .trailing
                                 ),
@@ -409,7 +409,8 @@ struct AISuggestionsView: View {
                     .font(.caption.bold())
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(Color.blue.opacity(0.15), in: Capsule())
+                    .background(Color.cyan.opacity(0.15), in: Capsule())
+                    .foregroundStyle(.cyan)
 
                 Text(suggestion.title)
                     .font(.headline)

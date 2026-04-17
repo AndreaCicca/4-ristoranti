@@ -78,7 +78,8 @@ struct EpisodeListView: View {
                                             .lineLimit(2)
                                             .padding(.horizontal, 8)
                                             .padding(.vertical, 4)
-                                            .background(.blue.opacity(0.1), in: Capsule())
+                                            .background(.cyan.opacity(0.15), in: Capsule())
+                                            .foregroundStyle(.cyan)
 
                                         Text("Ep. \(episode.Puntata)")
                                             .font(.caption2.monospacedDigit())
@@ -91,6 +92,7 @@ struct EpisodeListView: View {
                             .listRowBackground(
                                 RoundedRectangle(cornerRadius: 14, style: .continuous)
                                     .fill(.regularMaterial)
+                                    .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
                             )
                         }
                     } header: {

@@ -60,6 +60,7 @@ struct RestaurantMapView: View {
                 }
                 .padding(12)
                 .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
                 .padding(.horizontal)
                 .padding(.top, 10)
             }
@@ -75,22 +76,9 @@ struct RestaurantMapView: View {
                     )
                 }
             }
-        }
-        .sheet(item: $selectedGroup) { group in
-#if os(iOS) || targetEnvironment(macCatalyst)
-            // Prefer a large detent when the group has multiple episodes
-            if group.episodes.count > 1 {
+            .navigationDestination(item: $selectedGroup) { group in
                 GroupDetailSheet(group: group)
-                    .presentationDetents([.large])
-            } else {
-                GroupDetailSheet(group: group)
-                    .presentationDetents([.medium, .large])
             }
-#else
-            // On macOS present a larger sheet window when multiple episodes exist
-            GroupDetailSheet(group: group)
-                .frame(minWidth: 500, minHeight: group.episodes.count > 1 ? 600 : 400)
-#endif
         }
     }
 
@@ -132,7 +120,7 @@ struct GroupDetailSheet: View {
     let group: LocationGroup
     
     var body: some View {
-        NavigationStack {
+        Group {
             if group.episodes.count == 1, let episode = group.episodes.first {
                 EpisodeDetailView(episode: episode)
             } else {
@@ -150,7 +138,8 @@ struct GroupDetailSheet: View {
                                     .font(.caption.weight(.semibold))
                                     .padding(.horizontal, 8)
                                     .padding(.vertical, 4)
-                                    .background(.blue.opacity(0.12), in: Capsule())
+                                    .background(.cyan.opacity(0.15), in: Capsule())
+                                    .foregroundStyle(.cyan)
                             }
                         }
                         .padding(.vertical, 4)

@@ -42,7 +42,7 @@ struct NearestLocationsView: View {
         NavigationStack {
             ZStack {
                 LinearGradient(
-                    colors: [Color.blue.opacity(0.08), Color.cyan.opacity(0.08), Color.clear],
+                    colors: [Color.cyan.opacity(0.12), Color.blue.opacity(0.05), Color.clear],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
@@ -68,8 +68,9 @@ struct NearestLocationsView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                         .overlay(
                             RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .stroke(Color.primary.opacity(0.08), lineWidth: 1)
+                                .stroke(Color.cyan.opacity(0.3), lineWidth: 1)
                         )
+                        .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 5)
                         .padding(.horizontal)
 
                         List {
@@ -111,7 +112,8 @@ private struct NearestEpisodeRow: View {
                 .font(.caption.bold())
                 .padding(.horizontal, 8)
                 .padding(.vertical, 6)
-                .background(.blue.opacity(0.12), in: Capsule())
+                .background(Color.cyan.opacity(0.15), in: Capsule())
+                .foregroundStyle(.cyan)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.episode.Location)
