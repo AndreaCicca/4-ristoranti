@@ -1,4 +1,5 @@
 import SwiftUI
+import MapKit
 #if os(macOS)
 import AppKit
 #endif
@@ -10,6 +11,8 @@ struct EpisodeDetailView: View {
     @State private var appleMapClicks = 0
     @State private var googleMapClicks = 0
     @State private var animateTrophy = 0
+    @State private var winnerMapItem: MKMapItem?
+    
     var body: some View {
         ZStack {
             LinearGradient(
@@ -53,6 +56,28 @@ struct EpisodeDetailView: View {
     #if os(iOS) || targetEnvironment(macCatalyst)
         .navigationBarTitleDisplayMode(.inline)
     #endif
+        .task {
+            let query = "\(episode.Vincitore) \(episode.Location)"
+            let request = MKLocalSearch.Request()
+            request.naturalLanguageQuery = query
+            if let coord = episode.coordinate {
+                request.region = MKCoordinateRegion(center: coord, latitudinalMeters: 30000, longitudinalMeters: 30000)
+            }
+            
+            do {
+                let search = MKLocalSearch(request: request)
+                let response = try await search.start()
+                if let item = response.mapItems.first {
+                    await MainActor.run {
+                        withAnimation {
+                            self.winnerMapItem = item
+                        }
+                    }
+                }
+            } catch {
+                print("MapKit error: \(error)")
+            }
+        }
     }
     
     // MARK: - Bento Boxes
@@ -140,6 +165,52 @@ struct EpisodeDetailView: View {
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.8))
             }
+            
+            if let mapItem = winnerMapItem {
+                VStack(alignment: .leading, spacing: 12) {
+                    Divider()
+                        .background(.white.opacity(0.3))
+                        .padding(.vertical, 8)
+                    
+                    if let address = mapItem.placemark.title {
+                        HStack(alignment: .top) {
+                            Image(systemName: "mappin.and.ellipse")
+                            Text(address)
+                        }
+                        .font(.subheadline)
+                        .foregroundStyle(.white)
+                    }
+                    
+                    HStack(spacing: 16) {
+                        if let phone = mapItem.phoneNumber, let phoneURL = URL(string: "tel://\(phone.filter { !$0.isWhitespace })") {
+                            Button {
+                                openURL(phoneURL)
+                            } label: {
+                                Image(systemName: "phone.fill")
+                                    .padding(10)
+                                    .background(.white.opacity(0.2))
+                                    .clipShape(Circle())
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.white)
+                        }
+                        
+                        if let url = mapItem.url {
+                            Button {
+                                openURL(url)
+                            } label: {
+                                Image(systemName: "globe")
+                                    .padding(10)
+                                    .background(.white.opacity(0.2))
+                                    .clipShape(Circle())
+                            }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.white)
+                        }
+                    }
+                }
+                .transition(.opacity)
+            }
         }
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -184,39 +255,69 @@ struct EpisodeDetailView: View {
             Text("Naviga")
                 .font(.headline)
             
-            Spacer(minLength: 16)
+            Spacer(minLength: 8)
             
-            VStack(spacing: 12) {
+            VStack(spacing: 16) {
                 Button {
                     appleMapClicks += 1
                     openURL(appleMapsURL())
                 } label: {
-                    Label {
-                        Text("Apri in Apple Maps")
-                    } icon: {
+                    HStack {
                         Image(systemName: "map.fill")
+                            .font(.title2)
                             .symbolEffect(.bounce, value: appleMapClicks)
+                        
+                        Text("Apple Maps")
+                            .font(.title3.weight(.bold))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "arrow.up.right.circle.fill")
+                            .font(.title2)
+                            .foregroundStyle(.white.opacity(0.8))
                     }
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 20)
                     .frame(maxWidth: .infinity)
+                    .background(
+                        LinearGradient(colors: [Color.cyan, Color.blue.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .shadow(color: Color.cyan.opacity(0.4), radius: 8, x: 0, y: 4)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.cyan)
-                .controlSize(.large)
+                .buttonStyle(.plain)
                 
                 Button {
                     googleMapClicks += 1
                     openURL(googleMapsURL())
                 } label: {
-                    Label {
-                        Text("Apri in Google Maps")
-                    } icon: {
+                    HStack {
                         Image(systemName: "globe")
+                            .font(.title2)
                             .symbolEffect(.bounce, value: googleMapClicks)
+                        
+                        Text("Google Maps")
+                            .font(.title3.weight(.bold))
+                        
+                        Spacer()
+                        
+                        Image(systemName: "arrow.up.right.circle")
+                            .font(.title2)
+                            .foregroundStyle(.cyan)
                     }
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 20)
                     .frame(maxWidth: .infinity)
+                    .background(Color.white.opacity(0.6))
+                    .foregroundStyle(.cyan.opacity(0.9))
+                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .strokeBorder(Color.cyan.opacity(0.3), lineWidth: 1.5)
+                    )
                 }
-                .buttonStyle(.bordered)
-                .controlSize(.large)
+                .buttonStyle(.plain)
             }
         }
         .padding(24)

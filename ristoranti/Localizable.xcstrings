@@ -1,921 +1,939 @@
 {
-  "sourceLanguage": "it",
-  "strings": {
-    "#%lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "#%lld"
+  "sourceLanguage" : "it",
+  "strings" : {
+    "#%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%lld"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "#%lld"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%lld"
           }
         }
       }
     },
-    "%lld": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld"
+    "%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
           }
         }
       }
     },
-    "%lld location": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld locations"
+    "%lld location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld locations"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld location"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld location"
           }
         }
       }
     },
-    "%lld risultati in %lld stagioni": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld results in %lld seasons"
+    "%lld risultati in %lld stagioni" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld results in %lld seasons"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld risultati in %lld stagioni"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld risultati in %lld stagioni"
           }
         }
       }
     },
-    "4 Ristoranti": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "4 Restaurants"
+    "4 Ristoranti" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4 Restaurants"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "4 Ristoranti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4 Ristoranti"
           }
         }
       }
     },
-    "Abilita la posizione nelle impostazioni per vedere i ristoranti vicini.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enable location in settings to see nearby restaurants."
+    "Abilita la posizione nelle impostazioni per vedere i ristoranti vicini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable location in settings to see nearby restaurants."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Abilita la posizione nelle impostazioni per vedere i ristoranti vicini."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abilita la posizione nelle impostazioni per vedere i ristoranti vicini."
           }
         }
       }
     },
-    "AI": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI"
+    "AI" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI"
           }
         }
       }
     },
-    "AI Concierge": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI Concierge"
+    "AI Concierge" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Concierge"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI Concierge"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Concierge"
           }
         }
       }
     },
-    "AI Locale": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Local AI"
+    "AI Locale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local AI"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI Locale"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Locale"
           }
         }
       }
     },
-    "Analisi in corso...": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analyzing..."
+    "Analisi in corso..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analyzing..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Analisi in corso..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Analisi in corso..."
           }
         }
       }
     },
-    "Apri in Apple Maps": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open in Apple Maps"
+    "Apple Maps" : {
+
+    },
+    "Apri in Apple Maps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Apple Maps"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apri in Apple Maps"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri in Apple Maps"
           }
         }
       }
     },
-    "Apri in Google Maps": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Open in Google Maps"
+    "Apri in Google Maps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in Google Maps"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Apri in Google Maps"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apri in Google Maps"
           }
         }
       }
     },
-    "Attiva Localizzazione": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enable Location"
+    "Attiva Localizzazione" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Location"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Attiva Localizzazione"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attiva Localizzazione"
           }
         }
       }
     },
-    "Cerca location, vincitore...": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Search location, winner..."
+    "Benvenuto in 4 Ristoranti" : {
+
+    },
+    "Cerca location, vincitore..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search location, winner..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cerca location, vincitore..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cerca location, vincitore..."
           }
         }
       }
     },
-    "Chiedi ad Alessandro": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ask Alessandro"
+    "Chiedi ad Alessandro" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ask Alessandro"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chiedi ad Alessandro"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiedi ad Alessandro"
           }
         }
       }
     },
-    "Concorrenti": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Competitors"
+    "Concorrenti" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Competitors"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concorrenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concorrenti"
           }
         }
       }
     },
-    "Concorrenti sfidati": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Challenged Competitors"
+    "Concorrenti sfidati" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Challenged Competitors"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Concorrenti sfidati"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Concorrenti sfidati"
           }
         }
       }
     },
-    "Consigli personalizzati per trovare la tua prossima tappa": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Personalized advice to find your next stop"
+    "Consigli personalizzati per trovare la tua prossima tappa" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personalized advice to find your next stop"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Consigli personalizzati per trovare la tua prossima tappa"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consigli personalizzati per trovare la tua prossima tappa"
           }
         }
       }
     },
-    "Descrivi il locale ideale": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Describe your ideal place"
+    "Continua" : {
+
+    },
+    "Descrivi il locale ideale" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe your ideal place"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Descrivi il locale ideale"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Descrivi il locale ideale"
           }
         }
       }
     },
-    "distanza: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "distance: %@"
+    "distanza: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "distance: %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "distanza: %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "distanza: %@"
           }
         }
       }
     },
-    "Elaborazione on-device. Nessun invio a servizi cloud.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "On-device processing. No data sent to cloud services."
+    "Elaborazione on-device. Nessun invio a servizi cloud." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On-device processing. No data sent to cloud services."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Elaborazione on-device. Nessun invio a servizi cloud."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elaborazione on-device. Nessun invio a servizi cloud."
           }
         }
       }
     },
-    "Ep. %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ep. %@"
+    "Ep. %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ep. %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ep. %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ep. %@"
           }
         }
       }
     },
-    "Episodi": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Episodes"
+    "Episodi" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episodes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Episodi"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episodi"
           }
         }
       }
     },
-    "Esplora Episodi": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Explore Episodes"
+    "Esplora Episodi" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore Episodes"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Esplora Episodi"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esplora Episodi"
           }
         }
       }
     },
-    "Genera suggerimenti": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Generate suggestions"
+    "Genera suggerimenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate suggestions"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Genera suggerimenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera suggerimenti"
           }
         }
       }
     },
-    "Generazione in corso...": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Generating..."
+    "Generazione in corso..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generating..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Generazione in corso..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generazione in corso..."
           }
         }
       }
     },
-    "Idee su dove mangiare? Chiedi qui...": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ideas on where to eat? Ask here..."
+    "Google Maps" : {
+
+    },
+    "Idee su dove mangiare? Chiedi qui..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ideas on where to eat? Ask here..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Idee su dove mangiare? Chiedi qui..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idee su dove mangiare? Chiedi qui..."
           }
         }
       }
     },
-    "Inserisci una richiesta e tocca Genera suggerimenti.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Enter a prompt and tap Generate suggestions."
+    "Inizia a Esplorare" : {
+
+    },
+    "Inserisci una richiesta e tocca Genera suggerimenti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter a prompt and tap Generate suggestions."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Inserisci una richiesta e tocca Genera suggerimenti."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci una richiesta e tocca Genera suggerimenti."
           }
         }
       }
     },
-    "Lista": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "List"
+    "Lista" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "List"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Lista"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista"
           }
         }
       }
     },
-    "Mappa": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Map"
+    "Mappa" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mappa"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mappa"
           }
         }
       }
     },
-    "Mappa Ristoranti": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurants Map"
+    "Mappa Ristoranti" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurants Map"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Mappa Ristoranti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mappa Ristoranti"
           }
         }
       }
     },
-    "Naviga": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Navigate"
+    "Naviga" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigate"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Naviga"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naviga"
           }
         }
       }
     },
-    "Navigazione": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Navigation"
+    "Navigazione" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigation"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Navigazione"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigazione"
           }
         }
       }
     },
-    "Nessun suggerimento": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No suggestions"
+    "Nessun suggerimento" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No suggestions"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nessun suggerimento"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun suggerimento"
           }
         }
       }
     },
-    "Permesso Negato": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Permission Denied"
+    "Novità dell'Aggiornamento" : {
+
+    },
+    "Permesso Negato" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permission Denied"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Permesso Negato"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permesso Negato"
           }
         }
       }
     },
-    "Pi\u00f9 vicini a te": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Closest to you"
+    "Più vicini a te" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Closest to you"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pi\u00f9 vicini a te"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Più vicini a te"
           }
         }
       }
     },
-    "Prima visione": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "First Aired"
+    "Prima visione" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First Aired"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Prima visione"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prima visione"
           }
         }
       }
     },
-    "Raggiungi i ristoranti": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Reach the restaurants"
+    "Raggiungi i ristoranti" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reach the restaurants"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Raggiungi i ristoranti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raggiungi i ristoranti"
           }
         }
       }
     },
-    "Ricerca AI...": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AI Search..."
+    "Ricerca AI..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Search..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ricerca AI..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricerca AI..."
           }
         }
       }
     },
-    "Ricerca posizione...": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Searching location..."
+    "Ricerca posizione..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Searching location..."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ricerca posizione..."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ricerca posizione..."
           }
         }
       }
     },
-    "Ristoranti trovati: %lld": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Restaurants found: %lld"
+    "Ristoranti trovati: %lld" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurants found: %lld"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ristoranti trovati: %lld"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ristoranti trovati: %lld"
           }
         }
       }
     },
-    "Scelti per te": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Chosen for you"
+    "Scelti per te" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chosen for you"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Scelti per te"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scelti per te"
           }
         }
       }
     },
-    "Seleziona una voce dal menu": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Select an item from the menu"
+    "Seleziona una voce dal menu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an item from the menu"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seleziona una voce dal menu"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seleziona una voce dal menu"
           }
         }
       }
     },
-    "Stagione %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Season %@"
+    "Stagione %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Season %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stagione %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stagione %@"
           }
         }
       }
     },
-    "Stagione %@ \u2022 Puntata %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Season %@ \u2022 Episode %@"
+    "Stagione %@ • Puntata %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Season %@ • Episode %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Stagione %@ \u2022 Puntata %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stagione %@ • Puntata %@"
           }
         }
       }
     },
-    "Suggerimenti": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suggestions"
+    "Suggerimenti" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggestions"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suggerimenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suggerimenti"
           }
         }
       }
     },
-    "Tema": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Theme"
+    "Tema" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tema"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema"
           }
         }
       }
     },
-    "Tema dell'episodio": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Episode Theme"
+    "Tema dell'episodio" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Episode Theme"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tema dell'episodio"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tema dell'episodio"
           }
         }
       }
     },
-    "Titolare: %@": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Owner: %@"
+    "Titolare: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Owner: %@"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Titolare: %@"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titolare: %@"
           }
         }
       }
     },
-    "Top suggerimenti": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Top suggestions"
+    "Top suggerimenti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top suggestions"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Top suggerimenti"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Top suggerimenti"
           }
         }
       }
     },
-    "Trova ristoranti vicini": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Find restaurants near you"
+    "Trova ristoranti vicini" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find restaurants near you"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Trova ristoranti vicini"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trova ristoranti vicini"
           }
         }
       }
     },
-    "Usa la tua posizione per trovare i ristoranti pi\u00f9 vicini a te.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use your location to find restaurants near you."
+    "Usa la tua posizione per trovare i ristoranti più vicini a te." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use your location to find restaurants near you."
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usa la tua posizione per trovare i ristoranti pi\u00f9 vicini a te."
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa la tua posizione per trovare i ristoranti più vicini a te."
           }
         }
       }
     },
-    "Vicino a me": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Near me"
+    "Vicino a me" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Near me"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vicino a me"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vicino a me"
           }
         }
       }
     },
-    "Vicino a te": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Near You"
+    "Vicino a te" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Near You"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vicino a te"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vicino a te"
           }
         }
       }
     },
-    "Vincitore": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Winner"
+    "Vincitore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Winner"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vincitore"
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vincitore"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

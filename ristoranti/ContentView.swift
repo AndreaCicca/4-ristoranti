@@ -37,37 +37,48 @@ extension FocusedValues {
 struct ContentView: View {
     @StateObject private var dataService = DataService()
     @State private var selectedItem: NavigationItem? = .map
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     
     var body: some View {
-        NavigationSplitView {
-            List(NavigationItem.allCases, id: \.self, selection: $selectedItem) { item in
-                NavigationLink(value: item) {
-                    Label(item.rawValue, systemImage: item.iconName)
+        ZStack {
+            if hasSeenOnboarding {
+                NavigationSplitView {
+                    List(NavigationItem.allCases, id: \.self, selection: $selectedItem) { item in
+                        NavigationLink(value: item) {
+                            Label(item.rawValue, systemImage: item.iconName)
+                        }
+                    }
+                    .navigationTitle("4 Ristoranti")
+                } detail: {
+                    switch selectedItem {
+                    case .map:
+                        RestaurantMapView(dataService: dataService)
+                    case .list:
+                        EpisodeListView(dataService: dataService)
+                    case .nearest:
+                        NearestLocationsView(dataService: dataService)
+                    case .ai:
+                        AISuggestionsView(dataService: dataService)
+                    case .none:
+                        Text("Seleziona una voce dal menu")
+                            .foregroundColor(.secondary)
+                    }
                 }
-            }
-            .navigationTitle("4 Ristoranti")
-        } detail: {
-            switch selectedItem {
-            case .map:
-                RestaurantMapView(dataService: dataService)
-            case .list:
-                EpisodeListView(dataService: dataService)
-            case .nearest:
-                NearestLocationsView(dataService: dataService)
-            case .ai:
-                AISuggestionsView(dataService: dataService)
-            case .none:
-                Text("Seleziona una voce dal menu")
-                    .foregroundColor(.secondary)
+                .focusedSceneValue(\.selectedNavigationItem, $selectedItem)
+                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("dockNavigate"))) { notification in
+                    if let item = notification.object as? NavigationItem {
+                        selectedItem = item
+                    }
+                }
+                .tint(.cyan)
+                .transition(.opacity)
+            } else {
+                OnboardingView()
+                    .transition(.opacity)
+                    .zIndex(1)
             }
         }
-        .focusedSceneValue(\.selectedNavigationItem, $selectedItem)
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("dockNavigate"))) { notification in
-            if let item = notification.object as? NavigationItem {
-                selectedItem = item
-            }
-        }
-        .tint(.cyan)
+        .animation(.easeInOut, value: hasSeenOnboarding)
     }
 }
 
