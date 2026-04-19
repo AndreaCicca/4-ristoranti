@@ -238,6 +238,9 @@
         }
       }
     },
+    "Chiama" : {
+
+    },
     "Chiedi ad Alessandro" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -254,6 +257,9 @@
           }
         }
       }
+    },
+    "Chiudi" : {
+
     },
     "Concorrenti" : {
       "extractionState" : "manual",
@@ -408,6 +414,9 @@
         }
       }
     },
+    "Esplora i dintorni" : {
+
+    },
     "Genera suggerimenti" : {
       "localizations" : {
         "en" : {
@@ -460,6 +469,9 @@
           }
         }
       }
+    },
+    "Informazioni" : {
+
     },
     "Inizia a Esplorare" : {
 
@@ -580,6 +592,9 @@
         }
       }
     },
+    "Nessuna informazione scovata su Apple Maps per %@." : {
+
+    },
     "Novità dell'Aggiornamento" : {
 
     },
@@ -682,6 +697,9 @@
         }
       }
     },
+    "Ricerca su Apple Maps..." : {
+
+    },
     "Ristoranti trovati: %lld" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -731,6 +749,9 @@
           }
         }
       }
+    },
+    "Sito Web" : {
+
     },
     "Stagione %@" : {
       "extractionState" : "manual",
